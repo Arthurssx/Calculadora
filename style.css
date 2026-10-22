@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap');
+
+:root {
+    --cobalto: #1f3bd1;
+    --papel: #f6f7fb;
+    --tinta: #0f1b5c;
+    --tinta-escura: #070e33;
+    --amarelo: #ffd23f;
+    --laranja: #ff7a3d;
+    --lilas: #c3b5ff;
+    --menta: #6fe3b8;
+    --fonte: 'Archivo', system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: clamp(1.25rem, 4vw, 3rem) 0 4rem;
+    color: var(--papel);
+    font-family: var(--fonte);
+    background: var(--cobalto);
+}
+
+header,
+main {
+    width: min(100% - 2rem, 62rem);
+    margin-inline: auto;
+}
+
+h1 {
+    margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
+    font-size: clamp(2.2rem, 8vw, 5rem);
+    font-weight: 800;
+    font-stretch: 125%;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/* Cada operação é um bloco de cor */
+.op {
+    --cor: var(--amarelo);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 21rem;
+    padding: 1.5rem;
+    overflow: hidden;
+    color: var(--tinta);
+    background: var(--cor);
+    border-radius: 1.75rem;
+    transition: box-shadow 0.2s;
+}
+
+.soma { --cor: var(--amarelo); }
+.subtracao { --cor: var(--laranja); }
+.multiplicacao { --cor: var(--lilas); }
+.divisao { --cor: var(--menta); }
+
+.op > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Sinal gigante ao fundo (vem do data-sinal do HTML) */
+.op::after {
+    content: attr(data-sinal);
+    position: absolute;
+    right: -0.5rem;
+    bottom: -3.2rem;
+    font-size: 14rem;
+    font-weight: 800;
+    line-height: 1;
+    color: rgb(15 27 92 / 0.13);
+    pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+/* O bloco em uso ganha um anel e o sinal se inclina */
+.op:focus-within {
+    box-shadow: 0 0 0 4px var(--papel);
+}
+
+.op:focus-within::after {
+    transform: rotate(-10deg) scale(1.08);
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+}
+
+input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.85rem 1rem;
+    font: 600 1.15rem/1.2 var(--fonte);
+    font-variant-numeric: tabular-nums;
+    color: var(--tinta);
+    background: rgb(255 255 255 / 0.6);
+    border: 0;
+    border-radius: 0.8rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    transition: background-color 0.15s;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input::placeholder {
+    color: rgb(15 27 92 / 0.55);
+    font-weight: 500;
+}
+
+input:hover {
+    background: rgb(255 255 255 / 0.8);
+}
+
+input:focus {
+    background: #fff;
+    outline: 3px solid var(--tinta);
+    outline-offset: 2px;
+}
+
+/* Botão com cara de tecla: afunda quando clica */
+button {
+    padding: 1rem 1.5rem;
+    font: 800 1.1rem/1 var(--fonte);
+    color: var(--papel);
+    background: var(--tinta);
+    border: 0;
+    border-radius: 0.9rem;
+    box-shadow: 0 6px 0 var(--tinta-escura);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s, background-color 0.15s;
+}
+
+button:hover {
+    background: #1b2a80;
+}
+
+button:active {
+    transform: translateY(5px);
+    box-shadow: 0 1px 0 var(--tinta-escura);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--tinta);
+    outline-offset: 4px;
+}
+
+/* Resultado num visor de calculadora */
+p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Alterado de flex-end para flex-start */
+    min-height: 4rem;
+    margin: auto 0 0;
+    padding: 0.9rem 1.1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: left;
+    /* Alterado de right para left */
+    overflow-wrap: anywhere;
+    color: var(--cor);
+    background: var(--tinta);
+    border-radius: 0.8rem;
+}
+
+.novo {
+    animation: pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.erro {
+    color: #ff9b9b;
+    animation: tremer 0.4s;
+}
+
+@keyframes pop {
+    from { transform: scale(0.92); filter: brightness(1.8); }
+    to { transform: none; filter: none; }
+}
+
+@keyframes tremer {
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+@media (max-width: 44rem) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    .op {
+        min-height: 0;
+    }
+
+    .op::after {
+        font-size: 10rem;
+        bottom: -2.4rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

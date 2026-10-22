@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <script src="aula3.js" defer></script>
+    <script src="interacao.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Calculadora</h1>
+    </header>
+
+    <main>
+        <section class="op soma" data-sinal="+">
+            <h2>Soma</h2>
+            <div class="campos">
+                <input type="number" id="n1" placeholder="Número 1" aria-label="Soma: número 1">
+                <input type="number" id="n2" placeholder="Número 2" aria-label="Soma: número 2">
+            </div>
+            <button onclick="somar()">Somar</button>
+            <p id="resultado" aria-live="polite">resultado:</p>
+        </section>
+
+        <section class="op subtracao" data-sinal="−">
+            <h2>Subtração</h2>
+            <div class="campos">
+                <input type="number" id="n3" placeholder="Número 1" aria-label="Subtração: número 1">
+                <input type="number" id="n4" placeholder="Número 2" aria-label="Subtração: número 2">
+            </div>
+            <button onclick="subtrair()">Subtrair</button>
+            <p id="resultado2" aria-live="polite">resultado:</p>
+        </section>
+
+        <section class="op multiplicacao" data-sinal="×">
+            <h2>Multiplicação</h2>
+            <div class="campos">
+                <input type="number" id="n5" placeholder="Número 1" aria-label="Multiplicação: número 1">
+                <input type="number" id="n6" placeholder="Número 2" aria-label="Multiplicação: número 2">
+            </div>
+            <button onclick="mutiplicar()">Multiplicar</button>
+            <p id="resultado3" aria-live="polite">resultado:</p>
+        </section>
+
+        <section class="op divisao" data-sinal="÷">
+            <h2>Divisão</h2>
+            <div class="campos">
+                <input type="number" id="n7" placeholder="Número 1" aria-label="Divisão: número 1">
+                <input type="number" id="n8" placeholder="Número 2" aria-label="Divisão: número 2">
+            </div>
+            <button onclick="divisão()">Dividir</button>
+            <p id="resultado4" aria-live="polite">resultado:</p>
+        </section>
+    </main>
+</body>
+</html>
